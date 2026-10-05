@@ -1,0 +1,19 @@
+$kind: http-request
+name: Registration
+description: ""
+url: http://localhost:8080/user/create
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\":\"prachi\",\r
+
+    \    \"email\":\"prachi@gmail.com\",\r
+
+    \    \"password\":\"prachi123\",\r
+
+    \    \"number\": \"9039353932\"\r
+
+    }"
+order: 1787478935906

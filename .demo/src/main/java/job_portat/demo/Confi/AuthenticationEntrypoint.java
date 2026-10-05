@@ -1,0 +1,36 @@
+package job_portat.demo.Confi;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import job_portat.demo.ResponseDto.ApiErrorResponse;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
+import tools.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static tools.jackson.databind.type.LogicalType.Map;
+
+@Component
+public class AuthenticationEntrypoint implements AuthenticationEntryPoint {
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    @Override
+    public void commence(HttpServletRequest request,
+                         HttpServletResponse response,
+                         AuthenticationException authException)
+            throws IOException, ServletException {
+         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+         response.setContentType("application/json");
+        ApiErrorResponse respons1  = new ApiErrorResponse(
+                401,
+                "Unauthorized",
+                "Invalid username or password",
+                request.getRequestURI()
+        );
+         response.getWriter().write(objectMapper.writeValueAsString(respons1));
+    }
+}
